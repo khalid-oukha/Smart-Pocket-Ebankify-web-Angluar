@@ -10,11 +10,20 @@
         <div>
           <label class="text-gray-800 text-sm mb-2 block">Email Id</label>
           <input formControlName="email" type="text" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Enter email" />
+          <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-red-500 text-sm mt-1">
+            <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
+            <div *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email address.</div>
+          </div>
         </div>
         <div>
           <label class="text-gray-800 text-sm mb-2 block">Password</label>
           <input formControlName="password"  type="password" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Enter password" />
+          <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-red-500 text-sm mt-1">
+            <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
+            <div *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+          </div>
         </div>
+
 
         <div class="flex items-center">
           <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
