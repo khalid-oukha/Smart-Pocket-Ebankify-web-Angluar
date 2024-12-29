@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
-import {CommonModule, NgClass, NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -27,7 +27,7 @@ export class LoginComponent {
         next: (response) => {
           this.authService.saveToken(response.token);
           console.log('Login successful:', response);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard']).then(() => {});
         },
         error: (error) => {
           console.error('Login failed:', error);
