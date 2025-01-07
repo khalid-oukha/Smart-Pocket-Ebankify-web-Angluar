@@ -15,4 +15,8 @@ export class UsersService {
     console.log('Fetching users');
     return this.http.get<User[]>('/users');
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`/users/${id}`);
+  }
 }
