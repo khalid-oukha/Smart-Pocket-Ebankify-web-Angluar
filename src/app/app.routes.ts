@@ -1,19 +1,21 @@
 import { Routes } from '@angular/router';
-import {LayoutComponent} from "./pages/layout/layout.component";
-import {DashboardComponent} from "./pages/dashboard/dashboard.component";
-import {LoginComponent} from "./auth/login/login.component";
-import {RegisterComponent} from "./auth/register/register.component";
-import {adminGuard} from "./core/guards/admin.guard";
-import {authGuard} from "./core/guards/auth.guard";
+import {AuthLayoutComponent} from "./layouts/auth-layout/auth-layout.component";
+import {DashboardLayoutComponent} from "./layouts/dashboard-layout/dashboard-layout.component";
 
 export const routes: Routes = [
+
   {
-    path: '',component: LayoutComponent,
-    children: [
-      {path:'',redirectTo: 'dashboard',pathMatch: 'full'},
-      {path:'dashboard',component: DashboardComponent,canActivate: [adminGuard]},
-      {path:'login',component: LoginComponent,canActivate: [authGuard]},
-      {path:'register',component: RegisterComponent, canActivate: [authGuard]},
-    ]
-  }
+    path:'auth',
+    component:AuthLayoutComponent,
+    loadChildren: () => import('./account/account-routing.module').then(m => m.AccountRoutingModule),
+  },
+  {
+    path:'admin',
+    component:DashboardLayoutComponent,
+    loadChildren:() => import('./backoffice/dashboard-routing.module').then(m => m.DashboardRoutingModule),
+  },
+
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+
 ];
+

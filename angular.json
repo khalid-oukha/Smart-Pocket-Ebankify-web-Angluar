@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SmartPocket-web": {
+    "smartPocket-ebankify-web-angular": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/smart-pocket-web",
+            "outputPath": "dist/smart-pocket-ebankify-web-angular",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -27,7 +27,12 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -63,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "SmartPocket-web:build:production"
+              "buildTarget": "smartPocket-ebankify-web-angular:build:production"
             },
             "development": {
-              "buildTarget": "SmartPocket-web:build:development"
+              "buildTarget": "smartPocket-ebankify-web-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "SmartPocket-web:build"
+            "buildTarget": "smartPocket-ebankify-web-angular:build"
           }
         },
         "test": {
@@ -99,6 +104,6 @@
     }
   },
   "cli": {
-    "analytics": "7c08302b-daeb-4547-a1e4-855c3aeb1fa4"
+    "analytics": "9d0978de-b9f9-4fab-a174-5da35c685783"
   }
 }
