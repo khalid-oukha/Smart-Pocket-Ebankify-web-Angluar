@@ -19,4 +19,16 @@ export class UsersService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`/users/${id}`);
   }
+
+  findById(id: number): Observable<User> {
+    return this.http.get<User>(`/users/${id}`);
+  }
+
+  update(user: User): Observable<User> {
+    return this.http.put<User>(`/users/${user.id}`, user);
+  }
+
+  create(user: User): Observable<User> {
+    return this.http.post<User>('/users', user);
+  }
 }
