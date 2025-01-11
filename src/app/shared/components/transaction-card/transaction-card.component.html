@@ -1,0 +1,29 @@
+<div class="bg-white rounded-md shadow-sm p-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <h4 class="text-base font-bold text-gray-800">
+        {{ transaction.type }} Transaction
+      </h4>
+      <p class="text-xs text-gray-500 mt-1">
+        Date: {{ transaction.date }}
+      </p>
+    </div>
+    <div class="text-right">
+      <p class="text-base font-bold text-gray-800">
+        {{ transaction.amount }} DH
+      </p>
+      <p class="text-xs"
+         [ngClass]="{
+           'text-green-500': transaction.status === 'APPROVED',
+           'text-red-500': transaction.status === 'REJECTED',
+           'text-yellow-500': transaction.status === 'PENDING'
+         }">
+        {{ transaction.status }}
+      </p>
+    </div>
+  </div>
+  <div class="mt-2 text-xs text-gray-600">
+    <p>From: {{ transaction.accountFrom.accountNumber }}</p>
+    <p>To: {{ transaction.accountTo.accountNumber }}</p>
+  </div>
+</div>

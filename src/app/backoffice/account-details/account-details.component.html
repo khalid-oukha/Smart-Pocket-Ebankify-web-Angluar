@@ -1,0 +1,25 @@
+<div class="font-sans max-w-5xl max-md:max-w-xl mx-auto bg-white py-4">
+  <h1 class="text-3xl font-bold text-gray-800 text-center">Account Details</h1>
+
+  <div class="grid md:grid-cols-3 gap-8 mt-16">
+    <div class="md:col-span-2 space-y-4">
+      <app-account-information-card [account]="account"></app-account-information-card>
+
+      <div *ngFor="let transaction of transactions">
+        <app-transaction-card [transaction]="transaction"></app-transaction-card>
+      </div>
+    </div>
+
+    <div class="bg-gray-100 rounded-md p-6 h-max">
+      <h3 class="text-xl font-bold text-gray-800 border-b border-gray-300 pb-2">Actions</h3>
+      <div class="mt-4 space-y-3">
+        <button type="button" class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+          Edit Account
+        </button>
+        <button type="button" class="w-full px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+          Delete Account
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+  <p-toggleButton
+    [(ngModel)]="checked"
+    onIcon="pi pi-lock-open"
+    offIcon="pi pi-lock"
+    styleClass="w-2rem h-6 text-xs rounded-full"
+    ariaLabel="Toggle status"
+    (onChange)="onToggleChange($event)"
+    [disabled]="disabled"
+  ></p-toggleButton>
