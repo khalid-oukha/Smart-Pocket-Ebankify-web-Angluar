@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {Router} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {AuthService} from "../../../core/services/auth/auth.service";
+import {LoginResponse} from "../../../models/LoginResponse";
 
 @Component({
   selector: 'app-login',
@@ -24,9 +25,16 @@ export class LoginComponent {
   onsubmit() {
     if (this.form.valid) {
       this.authService.login(this.form.value).subscribe({
-        next: (response) => {
+        next: (response: LoginResponse) => {
           this.authService.saveToken(response.token);
-          this.fetchUserDetailsAndRedirect();
+          this.authService.fetchUserDetails().subscribe({
+            next: (user) => {
+              this.redirectBasedOnRole(user.role);
+            },
+            error: (error) => {
+              console.error('Failed to fetch user details:', error);
+            },
+          });
         },
         error: (error) => {
           console.error('Login failed:', error);

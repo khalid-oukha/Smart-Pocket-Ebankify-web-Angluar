@@ -12,7 +12,6 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<User[]> {
-    console.log('Fetching users');
     return this.http.get<User[]>('/users');
   }
 
