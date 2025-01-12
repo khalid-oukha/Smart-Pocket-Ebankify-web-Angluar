@@ -1,0 +1,61 @@
+<div class="mb-8">
+  <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Transactions</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+        <!-- Iterate over the transactions array -->
+        <tr
+          *ngFor="let transaction of transactions"
+          class="hover:bg-blue-50 transition-colors"
+          [ngClass]="{
+              'bg-red-50': transaction.direction === 'from',
+              'bg-green-50': transaction.direction === 'to'
+            }"
+        >
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{ transaction.type }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+            <!-- Apply styles based on the transaction direction -->
+            <span [ngClass]="{
+                'text-green-600': transaction.direction === 'to',
+                'text-red-600': transaction.direction === 'from'
+              }">
+                {{ transaction.amount | currency }}
+              </span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ transaction.date | date }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm">
+              <span [ngClass]="{
+                'text-green-600': transaction.status === 'APPROVED',
+                'text-yellow-600': transaction.status === 'PENDING',
+                'text-red-600': transaction.status === 'REJECTED'
+              }">
+                {{ transaction.status }}
+              </span>
+          </td>
+        </tr>
+        <!-- If no transactions, show a message -->
+        <tr *ngIf="transactions.length === 0">
+          <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No transactions found.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-4">
+      <a routerLink="../transactions" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+        View All Transactions
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

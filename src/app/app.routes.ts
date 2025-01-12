@@ -3,7 +3,8 @@ import {AuthLayoutComponent} from "./layouts/auth-layout/auth-layout.component";
 import {DashboardLayoutComponent} from "./layouts/dashboard-layout/dashboard-layout.component";
 import {loggedInGuard} from "./core/guards/AuthGuard/logged-in.guard";
 import {adminGuard} from "./core/guards/AdminGuard/admin.guard";
-import {HomeComponent} from "./frontoffice/home/home.component";
+import {HomeComponent} from "./frontoffice/pages/home/home.component";
+import {FrontOfficeLayoutComponent} from "./layouts/front-office-layout/front-office-layout.component";
 
 export const routes: Routes = [
 
@@ -20,7 +21,12 @@ export const routes: Routes = [
     loadChildren:() => import('./backoffice/dashboard-routing.module').then(m => m.DashboardRoutingModule),
   },
   {
-    path:'**',component:HomeComponent
+    path:'user',
+    component:FrontOfficeLayoutComponent,
+    loadChildren:() => import('./frontoffice/frontoffice-routing.module').then(m => m.FrontofficeRoutingModule),
+  },
+  {
+    path: '',redirectTo: '/user/home',pathMatch: 'full'
   }
 
 ];

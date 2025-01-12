@@ -1,0 +1,30 @@
+<div class="mb-8">
+  <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">User Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Full Name -->
+      <div class="bg-gradient-to-br from-blue-50 to-white p-4 rounded-lg border border-gray-100">
+        <p class="text-sm text-gray-500">Full Name</p>
+        <p class="text-gray-800 font-medium">{{ userDetails?.username || 'N/A' }}</p>
+      </div>
+      <!-- Email -->
+      <div class="bg-gradient-to-br from-blue-50 to-white p-4 rounded-lg border border-gray-100">
+        <p class="text-sm text-gray-500">Email</p>
+        <p class="text-gray-800 font-medium">{{ userDetails?.email || 'N/A' }}</p>
+      </div>
+      <!-- Phone Number -->
+      <div class="bg-gradient-to-br from-blue-50 to-white p-4 rounded-lg border border-gray-100">
+        <p class="text-sm text-gray-500">Phone Number</p>
+        <p class="text-gray-800 font-medium">{{ userDetails?.phoneNumber || 'N/A' }}</p>
+      </div>
+    </div>
+    <div class="mt-4">
+      <a href="#" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+        Edit Profile
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

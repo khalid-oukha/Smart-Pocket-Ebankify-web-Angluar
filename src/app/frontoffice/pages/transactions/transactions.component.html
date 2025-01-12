@@ -1,0 +1,35 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-white p-6">
+  <!-- Quick Actions -->
+  <div class="mb-8">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Transfer Money Card -->
+      <button class="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-xl shadow-lg border border-blue-200 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Transfer Money</h3>
+        <p class="text-sm text-gray-600 mt-2">Send money to another account</p>
+      </button>
+
+      <!-- Pay Bills Card -->
+      <button class="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-xl shadow-lg border border-green-200 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Pay Bills</h3>
+        <p class="text-sm text-gray-600 mt-2">Pay your bills online</p>
+      </button>
+
+      <!-- Deposit Check Card -->
+      <button class="bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-xl shadow-lg border border-purple-200 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Deposit Check</h3>
+        <p class="text-sm text-gray-600 mt-2">Deposit a check using your phone</p>
+      </button>
+
+      <!-- Contact Support Card -->
+      <button class="bg-gradient-to-br from-orange-100 to-orange-200 p-6 rounded-xl shadow-lg border border-orange-200 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Contact Support</h3>
+        <p class="text-sm text-gray-600 mt-2">Get help from our support team</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <app-transactions-table [transactions]="transactions"></app-transactions-table>
+  </div>
+</div>

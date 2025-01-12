@@ -1,0 +1,46 @@
+<div class="mb-8 relative"> <!-- Added relative positioning -->
+  <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+    <!-- Status Indicator in the Corner -->
+    <div class="absolute top-4 right-4">
+      <div class="flex items-center space-x-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-200 shadow-sm">
+        <!-- Status Dot -->
+        <span class="w-2 h-2 rounded-full
+          {{ account.status === 'ACTIVE' ? 'bg-green-500' :
+             account.status === 'INACTIVE' ? 'bg-yellow-500' :
+             'bg-red-500' }}">
+        </span>
+        <!-- Status Text -->
+        <p class="text-sm font-medium
+          {{ account.status === 'ACTIVE' ? 'text-green-700' :
+             account.status === 'INACTIVE' ? 'text-yellow-700' :
+             'text-red-700' }}">
+          {{account.status}}
+        </p>
+      </div>
+    </div>
+
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Account Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-gradient-to-br from-blue-50 to-white p-4 rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-sm text-gray-500">Account Number</p>
+        <p class="text-gray-800 font-medium">{{account.accountNumber}}</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white p-4 rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-sm text-gray-500">Account Type</p>
+        <p class="text-gray-800 font-medium">Savings Account</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white p-4 rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-sm text-gray-500">Balance</p>
+        <p class="text-gray-800 font-medium">{{account.balance}} DH</p>
+      </div>
+    </div>
+    <div class="mt-4">
+      <a href="#" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+        View All Accounts
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

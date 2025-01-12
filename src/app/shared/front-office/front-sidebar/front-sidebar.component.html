@@ -1,0 +1,77 @@
+<aside class="flex flex-col w-64 h-screen px-4 py-6 overflow-y-auto bg-gradient-to-b from-blue-50 to-white border-r shadow-sm">
+  <!-- Logo and Brand Name -->
+  <div class="flex items-center justify-center mb-6">
+    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+    </svg>
+    <span class="ml-2 text-xl font-bold text-blue-800">SmartPocket</span>
+  </div>
+
+  <!-- Account Selector -->
+  <div class="mb-6">
+    <label for="account-select" class="block text-sm font-medium text-gray-700 mb-1">Select Account</label>
+    <select
+      id="account-select"
+      [(ngModel)]="selectedAccountId"
+      (change)="onAccountChange()"
+      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+    >
+      <option *ngFor="let account of userAccounts" [value]="account.id">
+        {{ account.accountNumber }} ({{ account.balance }} DH)
+      </option>
+    </select>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="relative mb-6">
+    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </span>
+    <input type="text" class="w-full pl-10 pr-4 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" placeholder="Search" />
+  </div>
+
+  <!-- Menu Items -->
+  <nav class="flex-1 space-y-2">
+    <a href="#" class="flex items-center px-4 py-2 text-gray-700 rounded-lg hover:bg-blue-100 transition-colors duration-200">
+      <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+      <span class="ml-3 text-sm font-medium">Home</span>
+    </a>
+
+    <a href="#" class="flex items-center px-4 py-2 text-gray-700 rounded-lg hover:bg-blue-100 transition-colors duration-200">
+      <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span class="ml-3 text-sm font-medium">Transactions</span>
+    </a>
+
+    <a href="#" class="flex items-center px-4 py-2 text-gray-700 rounded-lg hover:bg-blue-100 transition-colors duration-200">
+      <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      </svg>
+      <span class="ml-3 text-sm font-medium">Profile</span>
+    </a>
+
+    <a href="#" class="flex items-center px-4 py-2 text-gray-700 rounded-lg hover:bg-blue-100 transition-colors duration-200">
+      <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+      <span class="ml-3 text-sm font-medium">Settings</span>
+    </a>
+  </nav>
+
+  <!-- User Profile Section -->
+  <div class="mt-6 pt-6 border-t border-gray-200">
+    <div class="flex items-center">
+      <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&h=634&q=80" alt="User Avatar" />
+      <div class="ml-3">
+        <p class="text-sm font-medium text-gray-800">John Doe</p>
+        <p class="text-xs text-gray-500">View Profile</p>
+      </div>
+    </div>
+  </div>
+</aside>

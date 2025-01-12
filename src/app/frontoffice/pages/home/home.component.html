@@ -1,0 +1,82 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-white p-6">
+  <!-- Header -->
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">Welcome Back, <span class="text-blue-600">{{userDetails.username}}</span>!</h1>
+    <p class="text-sm text-gray-500 mt-2">Here's an overview of your accounts and recent activities.</p>
+  </header>
+
+  <!-- User Information Section -->
+ <app-userdetails [userDetails]="userDetails"></app-userdetails>
+
+  <div class="mt-6 mb-8">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Your Accounts</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Account Buttons -->
+      <button
+        *ngFor="let account of userAccounts"
+        (click)="selectAccount(account)"
+        class="relative bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all text-left overflow-hidden"
+        [ngClass]="{'ring-2 ring-blue-400': selectedAccount?.id === account.id}"
+      >
+        <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5"></div>
+
+        <div class="relative z-10">
+          <h3 class="text-lg font-semibold text-white">{{ account.accountNumber }}</h3>
+          <p class="text-sm text-white/80 mt-2">Balance: {{ account.balance }} DH</p>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Account Information Section -->
+  <div *ngIf="selectedAccount">
+    <app-account-card [account]="selectedAccount"></app-account-card>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Account Overview</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-sm text-gray-500">Total Balance</p>
+        <p class="text-2xl font-bold text-gray-800">{{selectedAccount?.balance}} DH</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-sm text-gray-500">This Month's Spending</p>
+        <p class="text-2xl font-bold text-gray-800">$1,234.56</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-sm text-gray-500">Recent Transactions</p>
+        <p class="text-2xl font-bold text-gray-800">15</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-shadow">
+        <p class="text-sm text-gray-500">Savings Goal Progress</p>
+        <p class="text-2xl font-bold text-gray-800">65%</p>
+      </div>
+    </div>
+  </div>
+
+  <app-transactions-table [transactions]="transactions"></app-transactions-table>
+
+  <!-- Quick Actions -->
+  <div class="mb-8">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <button class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Transfer Money</h3>
+        <p class="text-sm text-gray-500 mt-2">Send money to another account</p>
+      </button>
+      <button class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Pay Bills</h3>
+        <p class="text-sm text-gray-500 mt-2">Pay your bills online</p>
+      </button>
+      <button class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Deposit Check</h3>
+        <p class="text-sm text-gray-500 mt-2">Deposit a check using your phone</p>
+      </button>
+      <button class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-md transition-all text-left">
+        <h3 class="text-lg font-semibold text-gray-800">Contact Support</h3>
+        <p class="text-sm text-gray-500 mt-2">Get help from our support team</p>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {catchError, Observable, of, tap, throwError} from "rxjs";
+import {BehaviorSubject, catchError, Observable, of, tap, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {LoginResponse} from "../../../models/LoginResponse";
 
@@ -7,7 +7,7 @@ import {LoginResponse} from "../../../models/LoginResponse";
   providedIn: 'root'
 })
 export class AuthService {
-  private userDetails: any = null;
+  private userDetails = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {
     this.loadUserDetails();
@@ -17,7 +17,7 @@ export class AuthService {
     if (typeof window !== 'undefined' && window.localStorage) {
       const userDetails = localStorage.getItem('userDetails');
       if (userDetails) {
-        this.userDetails = JSON.parse(userDetails);
+        this.userDetails.next(JSON.parse(userDetails));
       }
     }
   }
@@ -25,6 +25,7 @@ export class AuthService {
   private saveUserDetails(user: any): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('userDetails', JSON.stringify(user));
+      this.userDetails.next(user);
     } else {
       console.warn('LocalStorage is not available');
     }
@@ -34,14 +35,14 @@ export class AuthService {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('userDetails');
     }
-    this.userDetails = null;
+    this.userDetails.next(null);
   }
 
   login(credentials: { email: string; password: string }): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`/api/v1/auth/login`, credentials).pipe(
       tap((response: LoginResponse) => {
         this.saveToken(response.token);
-        this.fetchUserDetails();
+        this.fetchUserDetails().subscribe();
       }),
       catchError((error) => {
         console.error('Login failed:', error);
@@ -53,9 +54,7 @@ export class AuthService {
   fetchUserDetails(): Observable<any> {
     return this.http.get('/users/me').pipe(
       tap((user) => {
-        this.userDetails = user;
         this.saveUserDetails(user);
-        console.log('User Details Fetched:', this.userDetails);
       }),
       catchError((error) => {
         console.error('Failed to fetch user details:', error);
@@ -96,23 +95,13 @@ export class AuthService {
   }
 
   getUserDetails(): Observable<any> {
-    if (this.userDetails) {
-      return of(this.userDetails);
-    }
-
-    return this.http.get('/users/me').pipe(
-      tap((data) => (this.userDetails = data)),
-      catchError((error) => {
-        console.error('Failed to fetch user details:', error);
-        return throwError(() => error);
-      })
-    );
+    return this.userDetails.asObservable();
   }
 
   isAdmin(): boolean {
-    const user = this.userDetails;
+    const user = this.userDetails.value;
     const isAdmin = user && user.role === 'ADMIN';
-    console.log('User is admin:', isAdmin); // Debug log
+    console.log('User is admin:', isAdmin);
     return isAdmin;
   }
 }

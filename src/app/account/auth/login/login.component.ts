@@ -59,7 +59,7 @@ export class LoginComponent {
     if (role === 'ADMIN') {
       this.router.navigate(['admin/profile']).then(() => {});
     } else if (role === 'USER') {
-      this.router.navigate(['/user/profile']).then(() => {});
+      this.router.navigate(['/user/home']).then(() => {});
     } else {
       console.error('Unknown role:', role);
     }

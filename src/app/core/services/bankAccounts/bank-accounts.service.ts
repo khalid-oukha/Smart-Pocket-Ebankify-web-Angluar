@@ -30,4 +30,8 @@ export class BankAccountsService {
   create(user: User): Observable<BankAccount> {
     return this.http.post<BankAccount>('/api/v1/admin/bank-accounts/new-user', user);
   }
+
+  connectedUserBankAccounts(): Observable<BankAccount[]> {
+    return this.http.get<BankAccount[]>('/api/v1/bank-accounts/my-account');
+  }
 }
