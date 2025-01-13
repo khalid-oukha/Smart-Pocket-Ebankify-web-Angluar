@@ -1,0 +1,48 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-white p-6">
+
+
+<form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+  <!-- Transaction Type -->
+  <div class="mb-4">
+    <label for="type" class="block text-sm font-medium text-gray-700">Transaction Type</label>
+    <select id="type" formControlName="type" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <option *ngFor="let type of transactionTypes" [value]="type.value">{{ type.label }}</option>
+    </select>
+  </div>
+
+  <!-- Amount -->
+  <div class="mb-4">
+    <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+    <input id="amount" type="number" formControlName="amount" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    <small *ngIf="transactionForm.get('amount')?.touched && transactionForm.get('amount')?.errors?.['required']" class="text-red-500 text-sm">Amount is required.</small>
+    <small *ngIf="transactionForm.get('amount')?.touched && transactionForm.get('amount')?.errors?.['min']" class="text-red-500 text-sm">Amount must be greater than 0.</small>
+  </div>
+
+  <!-- From Account -->
+  <div class="mb-4">
+    <label for="accountFromNumber" class="block text-sm font-medium text-gray-700">From Account</label>
+    <select id="accountFromNumber" formControlName="accountFromNumber" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <option *ngFor="let account of accounts" [value]="account.accountNumber">{{ account.accountNumber }}</option>
+    </select>
+    <small *ngIf="transactionForm.get('accountFromNumber')?.touched && transactionForm.get('accountFromNumber')?.errors?.['required']" class="text-red-500 text-sm">From Account is required.</small>
+  </div>
+
+  <!-- To Account -->
+  <div class="mb-4">
+    <label for="accountToNumber" class="block text-sm font-medium text-gray-700">To Account</label>
+    <input id="accountToNumber" type="text" formControlName="accountToNumber" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter account number">
+    <small *ngIf="transactionForm.get('accountToNumber')?.touched && transactionForm.get('accountToNumber')?.errors?.['required']" class="text-red-500 text-sm">To Account is required.</small>
+    <small *ngIf="transactionForm.get('accountToNumber')?.touched && transactionForm.get('accountToNumber')?.errors?.['pattern']" class="text-red-500 text-sm">Please enter a valid account number (UUID format).</small>
+  </div>
+
+  <!-- Backend Error Message -->
+  <div *ngIf="backendError" class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">
+    {{ backendError }}
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="transactionForm.invalid" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+    Create Transaction
+  </button>
+</form>
+</div>

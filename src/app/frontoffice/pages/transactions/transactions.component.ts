@@ -5,6 +5,7 @@ import {TransactionsTableComponent} from "../../components/transactions-table/tr
 import {UserdetailsComponent} from "../../components/userdetails/userdetails.component";
 import {TransactionsService} from "../../../core/services/transactions/transactions.service";
 import {AccountService} from "../../../core/services/bankAccounts/account.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-transactions',
@@ -14,7 +15,8 @@ import {AccountService} from "../../../core/services/bankAccounts/account.servic
     NgForOf,
     NgIf,
     TransactionsTableComponent,
-    UserdetailsComponent
+    UserdetailsComponent,
+    RouterLink
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'

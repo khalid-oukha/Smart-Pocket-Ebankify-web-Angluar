@@ -1,1 +1,112 @@
-<p>transactions works!</p>
+<div class="container mx-auto p-6">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Transactions</h2>
+
+  <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
+    <table class="min-w-full bg-white">
+      <thead class="bg-gray-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Type
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Amount
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Date
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Status
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Actions
+        </th>
+      </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+      <tr *ngFor="let transaction of transactions" class="hover:bg-gray-50 transition-colors">
+        <!-- Type -->
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+          {{ transaction.type }}
+        </td>
+
+        <!-- Amount -->
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+          {{ transaction.amount | currency }}
+        </td>
+
+        <!-- Date -->
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+          {{ transaction.date | date }}
+        </td>
+
+        <!-- Status -->
+        <td class="px-6 py-4 whitespace-nowrap text-sm">
+            <span
+              [ngClass]="{
+                'text-green-600': transaction.status === 'APPROVED',
+                'text-yellow-600': transaction.status === 'PENDING',
+                'text-red-600': transaction.status === 'REJECTED'
+              }"
+            >
+              {{ transaction.status }}
+            </span>
+        </td>
+
+        <!-- Actions -->
+        <td class="px-6 py-4 whitespace-nowrap text-sm">
+          <div *ngIf="transaction.status === 'PENDING'" class="flex items-center space-x-4">
+            <!-- Approve Button -->
+            <button
+              (click)="approveTransaction(transaction.id)"
+              class="text-green-600 hover:text-green-800 flex items-center"
+            >
+              <svg
+                class="w-4 h-4 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              Approve
+            </button>
+
+            <!-- Reject Button -->
+            <button
+              (click)="rejectTransaction(transaction.id)"
+              class="text-red-600 hover:text-red-800 flex items-center"
+            >
+              <svg
+                class="w-4 h-4 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              Reject
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <!-- If no transactions, show a message -->
+      <tr *ngIf="transactions.length === 0">
+        <td colspan="5" class="px-6 py-4 text-sm text-gray-500 text-center">
+          No transactions found.
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
