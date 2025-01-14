@@ -11,6 +11,9 @@ import {FormsModule} from "@angular/forms";
 import {DialogField} from "../../models/DialogField";
 import {DialogComponent} from "../../shared/components/dialog/dialog.component";
 import {SplitButtonModule} from "primeng/splitbutton";
+import {MessagesModule} from "primeng/messages";
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 @Component({
   selector: 'app-users',
@@ -23,10 +26,15 @@ import {SplitButtonModule} from "primeng/splitbutton";
     AvatarModule,
     FormsModule,
     DialogComponent,
-    SplitButtonModule
+    SplitButtonModule,
+    MessagesModule,
+    ToastModule
+
   ],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.css'
+  styleUrl: './users.component.css',
+  providers: [MessageService]
+
 })
 export class UsersComponent implements OnInit {
 
@@ -36,7 +44,9 @@ export class UsersComponent implements OnInit {
   dialogFields: DialogField[] = [];
   isEditMode: boolean = false;
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService,
+              private messageService: MessageService
+  ) {
   }
 
   ngOnInit(): void {
@@ -58,11 +68,21 @@ export class UsersComponent implements OnInit {
     this.usersService.delete(id).subscribe({
       next: () => {
         this.users = this.users?.filter((user) => user.id !== id);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'User deleted successfully!'
+        });
       },
       error: (error) => {
         console.error('Error deleting user:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to delete user. Please try again.'
+        });
       }
-    })
+    });
   }
 
   showAddUserDialog(): void {
@@ -118,9 +138,19 @@ export class UsersComponent implements OnInit {
             user.id === updatedUser.id ? updatedUser : user
           );
           this.onDialogClosed();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'User updated successfully!'
+          });
         },
         error: (error) => {
           console.error('Error updating user:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to update user. Please try again.'
+          });
         }
       });
     } else {
@@ -137,9 +167,19 @@ export class UsersComponent implements OnInit {
         next: (response) => {
           this.users?.push(response);
           this.onDialogClosed();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'User added successfully!'
+          });
         },
         error: (error) => {
           console.error('Error creating user:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to add user. Please try again.'
+          });
         }
       });
     }
