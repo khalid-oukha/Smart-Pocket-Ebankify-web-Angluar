@@ -69,14 +69,13 @@ describe('UserdetailsComponent', () => {
     component.userDetails = null;
     fixture.detectChanges();
 
-    // Verify the rendered content
     const usernameElement = fixture.nativeElement.querySelector('div:nth-child(1) > p.text-gray-800');
     const emailElement = fixture.nativeElement.querySelector('div:nth-child(2) > p.text-gray-800');
     const phoneNumberElement = fixture.nativeElement.querySelector('div:nth-child(3) > p.text-gray-800');
 
-    expect(usernameElement).toBeTruthy(); // Ensure the element exists
-    expect(emailElement).toBeTruthy(); // Ensure the element exists
-    expect(phoneNumberElement).toBeTruthy(); // Ensure the element exists
+    expect(usernameElement).toBeTruthy();
+    expect(emailElement).toBeTruthy();
+    expect(phoneNumberElement).toBeTruthy();
 
     expect(usernameElement.textContent).toContain('N/A');
     expect(emailElement.textContent).toContain('N/A');

@@ -7,27 +7,26 @@ import { User } from '../../../models/user.model';
   providedIn: 'root',
 })
 export class UsersService {
-  private apiUrl = '/api';
 
   constructor(private http: HttpClient) {}
 
   findAll(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/users`);
+    return this.http.get<User[]>(`/users`);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
+    return this.http.delete<void>(`/users/${id}`);
   }
 
   findById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/users/${id}`);
+    return this.http.get<User>(`/users/${id}`);
   }
 
   update(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/users/${user.id}`, user);
+    return this.http.put<User>(`/users/${user.id}`, user);
   }
 
   create(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/users`, user);
+    return this.http.post<User>(`/users`, user);
   }
 }

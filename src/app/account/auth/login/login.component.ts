@@ -57,7 +57,7 @@ export class LoginComponent {
 
   private redirectBasedOnRole(role: string) {
     if (role === 'ADMIN') {
-      this.router.navigate(['admin/profile']).then(() => {});
+      this.router.navigate(['admin/users']).then(() => {});
     } else if (role === 'USER') {
       this.router.navigate(['/user/home']).then(() => {});
     } else {

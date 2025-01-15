@@ -8,14 +8,17 @@ describe('TransactionsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule], // Use HttpClientTestingModule to mock HTTP requests
       providers: [TransactionsService],
     });
+
+    // Inject the service and HTTP mock
     service = TestBed.inject(TransactionsService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
+    // Verify that there are no outstanding HTTP requests
     httpMock.verify();
   });
 
@@ -25,85 +28,106 @@ describe('TransactionsService', () => {
 
   it('should fetch all transactions', () => {
     const mockTransactions = [
-      { id: 1, amount: 100, fromAccount: 1, toAccount: 2 },
-      { id: 2, amount: 200, fromAccount: 2, toAccount: 3 },
+      { id: 1, amount: 100, type: 'transfer' },
+      { id: 2, amount: 200, type: 'deposit' },
     ];
 
+    // Call the service method
     service.findAll().subscribe((transactions) => {
       expect(transactions).toEqual(mockTransactions);
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}`);
+    // Expect a GET request to the API URL
+    const req = httpMock.expectOne('/api/v1/transactions');
     expect(req.request.method).toBe('GET');
+
+    // Respond with mock data
     req.flush(mockTransactions);
   });
 
   it('should fetch transactions by account ID', () => {
-    const accountId = 1;
     const mockResponse = {
-      from: [{ id: 1, amount: 100, fromAccount: 1, toAccount: 2 }],
-      to: [{ id: 2, amount: 200, fromAccount: 2, toAccount: 1 }],
+      from: [{ id: 1, amount: 100, type: 'transfer' }],
+      to: [{ id: 2, amount: 200, type: 'deposit' }],
     };
 
-    service.getTransactionsByAccount(accountId).subscribe((response) => {
+    // Call the service method
+    service.getTransactionsByAccount(1).subscribe((response) => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}/account/${accountId}`);
+    // Expect a GET request to the API URL with the account ID
+    const req = httpMock.expectOne('/api/v1/transactions/account/1');
     expect(req.request.method).toBe('GET');
+
+    // Respond with mock data
     req.flush(mockResponse);
   });
 
   it('should create a transaction', () => {
-    const mockTransactionData = { amount: 100, fromAccount: 1, toAccount: 2 };
-    const mockResponse = { id: 1, ...mockTransactionData };
+    const mockTransaction = { id: 1, amount: 100, type: 'transfer' };
 
-    service.createTransaction(mockTransactionData).subscribe((response) => {
-      expect(response).toEqual(mockResponse);
+    // Call the service method
+    service.createTransaction(mockTransaction).subscribe((response) => {
+      expect(response).toEqual(mockTransaction);
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}`);
+    // Expect a POST request to the API URL
+    const req = httpMock.expectOne('/api/v1/transactions');
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(mockTransactionData);
-    req.flush(mockResponse);
+    expect(req.request.body).toEqual(mockTransaction);
+
+    // Respond with mock data
+    req.flush(mockTransaction);
   });
 
   it('should fetch a transaction by ID', () => {
-    const transactionId = 1;
-    const mockTransaction = { id: 1, amount: 100, fromAccount: 1, toAccount: 2 };
+    const mockTransaction = { id: 1, amount: 100, type: 'transfer' };
 
-    service.findById(transactionId).subscribe((transaction) => {
+    // Call the service method
+    service.findById(1).subscribe((transaction) => {
       expect(transaction).toEqual(mockTransaction);
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}/${transactionId}`);
+    // Expect a GET request to the API URL with the transaction ID
+    const req = httpMock.expectOne('/api/v1/transactions/1');
     expect(req.request.method).toBe('GET');
+
+    // Respond with mock data
     req.flush(mockTransaction);
   });
 
   it('should approve a transaction', () => {
-    const transactionId = 1;
     const mockResponse = { id: 1, status: 'approved' };
 
-    service.approveTransaction(transactionId).subscribe((response) => {
+    // Call the service method
+    service.approveTransaction(1).subscribe((response) => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}/${transactionId}/approve`);
+    // Expect a PUT request to the API URL with the transaction ID
+    const req = httpMock.expectOne('/api/v1/transactions/1/approve');
     expect(req.request.method).toBe('PUT');
+
+    // Respond with mock data
     req.flush(mockResponse);
   });
 
   it('should reject a transaction', () => {
-    const transactionId = 1;
     const mockResponse = { id: 1, status: 'rejected' };
 
-    service.rejectTransaction(transactionId).subscribe((response) => {
+    // Call the service method
+    service.rejectTransaction(1).subscribe((response) => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}/${transactionId}/reject`);
+    // Expect a PUT request to the API URL with the transaction ID
+    const req = httpMock.expectOne('/api/v1/transactions/1/reject');
     expect(req.request.method).toBe('PUT');
+
+    // Respond with mock data
     req.flush(mockResponse);
   });
+
+
 });

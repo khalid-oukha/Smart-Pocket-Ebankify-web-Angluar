@@ -70,12 +70,12 @@ export class CreateTransactionComponent implements OnInit {
         this.router.navigate(['user/transactions', response.id]);
       },
       error: (error) => {
-        if (error.error) {
-          this.backendError = error.error.message || 'An error occurred while creating the transaction.';
+        if (error.error && error.error.message) {
+          this.backendError = error.error.message;
         } else {
           this.backendError = 'An unexpected error occurred. Please try again.';
         }
-      }
+      },
     });
   }
 }

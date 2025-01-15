@@ -30,7 +30,7 @@ describe('UsersService', () => {
       expect(users).toEqual(mockUsers);
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}/users`);
+    const req = httpMock.expectOne(`/users`);
     expect(req.request.method).toBe('GET');
     req.flush(mockUsers);
   });
@@ -42,7 +42,7 @@ describe('UsersService', () => {
       expect(response).toBeNull();
     });
 
-    const req = httpMock.expectOne(`${service['apiUrl']}/users/${userId}`);
+    const req = httpMock.expectOne(`/users/${userId}`);
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
   });

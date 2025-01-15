@@ -11,11 +11,7 @@ import {RouterLink} from "@angular/router";
   selector: 'app-transactions',
   standalone: true,
   imports: [
-    AccountCardComponent,
-    NgForOf,
-    NgIf,
     TransactionsTableComponent,
-    UserdetailsComponent,
     RouterLink
   ],
   templateUrl: './transactions.component.html',

@@ -7,6 +7,6 @@ export interface Transaction {
   date: string;
   fee: number;
   status: string;
-  accountFrom: BankAccount;
-  accountTo: BankAccount;
+  accountFrom?: BankAccount;
+  accountTo?: BankAccount;
 }
